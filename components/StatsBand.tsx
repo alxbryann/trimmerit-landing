@@ -124,9 +124,9 @@ export default function StatsBand() {
         />
         <Separator />
         <Counter
-          target={14}
-          suffix="d"
-          label="gratis para<br/>probarlo sin riesgo"
+          target={2}
+          suffix=""
+          label="planes de pago<br/>precios claros"
           isActive={isInView}
           duration={1400}
         />

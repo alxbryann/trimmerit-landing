@@ -3,18 +3,18 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const STARTER_FEATURES = [
+const INDIVIDUAL_FEATURES = [
   { text: 'Agenda digital', strong: 'ilimitada' },
   { text: 'Recordatorios automáticos' },
-  { text: 'Hasta ', strong: '50 clientes', after: ' activos' },
+  { text: 'Pensado para ', strong: '1 profesional', after: ' independiente' },
   { text: 'Link de reserva público' },
 ]
 
-const PRO_FEATURES = [
-  { strong: 'Puestos y clientes ilimitados' },
+const SALON_FEATURES = [
+  { strong: 'Salones, barberías y equipos' },
+  { text: 'Todo lo del plan ', strong: 'Individual', after: ', ampliado' },
   { text: 'Fichas completas por cliente' },
   { strong: 'Programa de sellos', after: ' de fidelización' },
-  { text: 'Estadísticas de retención' },
   { text: 'Soporte prioritario por WhatsApp' },
 ]
 
@@ -133,7 +133,7 @@ export default function Pricing() {
               marginBottom: '52px',
             }}
           >
-            14 días gratis en cualquier plan · Sin tarjeta de crédito
+            Solo planes de pago · Facturación mensual en pesos colombianos
           </p>
         </motion.div>
 
@@ -146,7 +146,7 @@ export default function Pricing() {
             border: '1px solid var(--border)',
           }}
         >
-          {/* Starter */}
+          {/* Individual */}
           <motion.div
             className="plan-card"
             initial={{ opacity: 0, y: 24 }}
@@ -169,7 +169,7 @@ export default function Pricing() {
                 marginBottom: '28px',
               }}
             >
-              Starter
+              Individual
             </div>
 
             <div
@@ -185,7 +185,7 @@ export default function Pricing() {
                 marginBottom: '4px',
               }}
             >
-              Gratis
+              $29.900
             </div>
 
             <div
@@ -198,10 +198,10 @@ export default function Pricing() {
                 marginBottom: '36px',
               }}
             >
-              Para siempre · 1 puesto
+              COP / mes · Persona sola
             </div>
 
-            <FeatureList items={STARTER_FEATURES} />
+            <FeatureList items={INDIVIDUAL_FEATURES} />
 
             <a
               href="#"
@@ -221,11 +221,11 @@ export default function Pricing() {
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.82' }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1' }}
             >
-              Empezar gratis
+              Contratar plan
             </a>
           </motion.div>
 
-          {/* Pro */}
+          {/* Salón & equipo */}
           <motion.div
             className="plan-card featured plan-shimmer"
             initial={{ opacity: 0, y: 24 }}
@@ -249,7 +249,7 @@ export default function Pricing() {
                 marginBottom: '28px',
               }}
             >
-              Pro
+              Salón & equipo
             </div>
 
             <div
@@ -265,7 +265,7 @@ export default function Pricing() {
                 marginBottom: '4px',
               }}
             >
-              $49k
+              $59.900
             </div>
 
             <div
@@ -278,10 +278,10 @@ export default function Pricing() {
                 marginBottom: '36px',
               }}
             >
-              COP / mes · Sin límites
+              COP / mes · Locales y varios profesionales
             </div>
 
-            <FeatureList items={PRO_FEATURES} featured />
+            <FeatureList items={SALON_FEATURES} featured />
 
             <a
               href="#"
@@ -301,7 +301,7 @@ export default function Pricing() {
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.82' }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1' }}
             >
-              14 días gratis
+              Contratar plan
             </a>
           </motion.div>
         </div>

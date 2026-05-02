@@ -64,10 +64,6 @@ export default function Nav() {
         right: 0,
         zIndex: 100,
         height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 40px',
         borderBottom: `1px solid ${scrolled ? 'var(--border2)' : 'var(--border)'}`,
         background: 'color-mix(in srgb, var(--bg) 85%, transparent)',
         backdropFilter: 'blur(12px)',
@@ -75,6 +71,13 @@ export default function Nav() {
         transition: 'border-color 0.3s, background 0.3s',
       }}
     >
+      <div
+        className="mx-auto flex h-full w-full max-w-[1280px] items-center justify-between px-[clamp(1.25rem,5vw,3rem)]"
+        style={{
+          maxWidth: '1280px',
+          paddingInline: 'clamp(1.5rem, 5vw, 3rem)',
+        }}
+      >
       <a
         href="#"
         style={{
@@ -147,8 +150,9 @@ export default function Nav() {
           onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.82' }}
           onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1' }}
         >
-          Empezar gratis
+          Ver planes
         </a>
+      </div>
       </div>
     </nav>
   )
