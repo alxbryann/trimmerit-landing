@@ -3,39 +3,52 @@
 import Image from 'next/image'
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useDataTheme } from '@/hooks/useDataTheme'
 
 const FEATURES = [
   {
-    file: '/agenda.png',
-    width: 530,
-    height: 1054,
+    lightSrc: '/agenda-light-transparent.png',
+    darkSrc: '/agenda-dark-transparent.png',
+    widthLight: 513,
+    heightLight: 1024,
+    widthDark: 524,
+    heightDark: 1024,
     eyebrow: '01 · Agenda',
     headline: 'Su día, claro\nde un vistazo.',
     sub: 'Citas, horarios e ingresos en tiempo real desde el celular. Sin hojas, sin cuadros de Excel, sin preguntar quién sigue.',
     flip: false,
   },
   {
-    file: '/perfil.png',
-    width: 517,
-    height: 1045,
+    lightSrc: '/perfil-light-transparent.png',
+    darkSrc: '/perfil-dark-transparent.png',
+    widthLight: 482,
+    heightLight: 1024,
+    widthDark: 447,
+    heightDark: 1024,
     eyebrow: '02 · Perfil',
     headline: 'Un link.\nToda su barbería.',
     sub: 'Fotos, servicios, precios y disponibilidad en vivo. Mándelo por WhatsApp o póngalo en el Instagram — sus clientes agendan solos desde donde estén.',
     flip: true,
   },
   {
-    file: '/reserva.png',
-    width: 540,
-    height: 1047,
+    lightSrc: '/reserva-light-transparent.png',
+    darkSrc: '/reserva-dark-transparent.png',
+    widthLight: 487,
+    heightLight: 1024,
+    widthDark: 475,
+    heightDark: 1024,
     eyebrow: '03 · Reservas',
     headline: 'Reserva confirmada.\nA seguir cortando.',
     sub: 'El cliente elige, agenda y recibe confirmación. Usted solo atiende. Sin ir y volver por WhatsApp para cuadrar nada.',
     flip: false,
   },
   {
-    file: '/fideliza.png',
-    width: 533,
-    height: 986,
+    lightSrc: '/fideliza-light-transparent.png',
+    darkSrc: '/fideliza-dark-transparent.png',
+    widthLight: 841,
+    heightLight: 1024,
+    widthDark: 784,
+    heightDark: 1024,
     eyebrow: '04 · Fidelización',
     headline: 'Que siempre\nvuelvan.',
     sub: 'Programe sellos, descuentos y beneficios personalizados. Sus clientes más fieles siempre tienen una razón para regresar — y siempre la recuerdan.',
@@ -45,12 +58,17 @@ const FEATURES = [
 
 interface FeatureRowProps {
   feature: (typeof FEATURES)[0]
-  index: number
+  theme: 'light' | 'dark'
 }
 
-function FeatureRow({ feature, index }: FeatureRowProps) {
+function FeatureRow({ feature, theme }: FeatureRowProps) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isLight = theme === 'light'
+  const imgSrc = isLight ? feature.lightSrc : feature.darkSrc
+  const imgW = isLight ? feature.widthLight : feature.widthDark
+  const imgH = isLight ? feature.heightLight : feature.heightDark
+  const isWideMockup = imgW > imgH
 
   const imgAnim = {
     hidden: { opacity: 0, x: feature.flip ? 48 : -48 },
@@ -70,18 +88,16 @@ function FeatureRow({ feature, index }: FeatureRowProps) {
       className="showcase-img-wrap"
     >
       <div
+        className={`showcase-mock-frame ${isWideMockup ? 'showcase-wide' : ''}`}
         style={{
-          width: 'min(320px, 42vw)',
-          borderRadius: '12px',
-          boxShadow: '0 24px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(196,154,85,0.06)',
-          overflow: 'hidden',
+          width: isWideMockup ? 'min(440px, 92vw)' : 'min(320px, 42vw)',
         }}
       >
         <Image
-          src={feature.file}
+          src={imgSrc}
           alt={feature.eyebrow}
-          width={feature.width}
-          height={feature.height}
+          width={imgW}
+          height={imgH}
           style={{ width: '100%', height: 'auto', display: 'block' }}
           quality={90}
         />
@@ -171,6 +187,7 @@ function FeatureRow({ feature, index }: FeatureRowProps) {
 }
 
 export default function AppShowcase() {
+  const theme = useDataTheme()
   const headerRef = useRef<HTMLDivElement>(null)
   const headerInView = useInView(headerRef, { once: true, amount: 0.5 })
 
@@ -224,8 +241,8 @@ export default function AppShowcase() {
       </motion.div>
 
       {/* Feature rows */}
-      {FEATURES.map((feature, i) => (
-        <FeatureRow key={feature.eyebrow} feature={feature} index={i} />
+      {FEATURES.map((feature) => (
+        <FeatureRow key={feature.eyebrow} feature={feature} theme={theme} />
       ))}
     </section>
   )

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useDataTheme } from '@/hooks/useDataTheme'
 
 const container = {
   hidden: {},
@@ -19,8 +20,10 @@ const item = {
   },
 }
 
-/** Must match public/hero.png so layout aspect and `sizes` stay correct. */
-const HERO_IMG = { w: 2540, h: 2988 } as const
+const HERO_IMAGES = {
+  dark: { w: 945, h: 1024, src: '/hero-dark-transparent.png' as const },
+  light: { w: 932, h: 1024, src: '/hero-light-transparent.png' as const },
+}
 
 /** Stagger copy blocks inside the left column (not a direct child of the root grid container). */
 const textStagger = {
@@ -33,6 +36,9 @@ const textStagger = {
 const proofItems = ['Agenda 24/7', 'Desde $29.900', 'Sin llamadas perdidas']
 
 export default function Hero() {
+  const theme = useDataTheme()
+  const heroImage = HERO_IMAGES[theme]
+
   return (
     <section
       className="hero-shell"
@@ -243,10 +249,10 @@ export default function Hero() {
               <strong>5:30 PM</strong>
             </div>
             <Image
-              src="/hero.png"
+              src={heroImage.src}
               alt="Vistas de la app Trimmerit en el móvil"
-              width={HERO_IMG.w}
-              height={HERO_IMG.h}
+              width={heroImage.w}
+              height={heroImage.h}
               priority
               sizes="(max-width: 1023px) min(92vw, 460px), (max-width: 1280px) 46vw, 560px"
               className="hero-device-img mx-auto block h-auto w-full"
